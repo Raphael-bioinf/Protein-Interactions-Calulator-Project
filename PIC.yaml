@@ -1,0 +1,8 @@
+name: PIC
+channels:
+	- defaults
+	- bioconda
+	- conda-forge
+dependencies:
+	- Numpy
+	- Pandas
