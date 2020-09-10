@@ -1,0 +1,163 @@
+
+<!-- saved from url=(0039)https://mizuguchilab.org/joy/hbond.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>
+<pre><strong>NAME</strong>
+     Hbond - locate possible hydrogen bonds in a protein
+     structure
+
+<strong>SYNOPSIS</strong>
+     <strong>hbond</strong> <em>-options</em> <em>files</em>
+
+<strong>DESCRIPTION</strong>
+     <em>Hbond</em> is a program to read in Brookhaven format files and to
+     calculate all the possible hydrogen bonds and other
+     sidechain interactions of interest. The output from <em>hbond</em> is
+     a file with a <em>.hbd</em> extension that is primarily meant to be
+     used as input for <em>joy.</em>  If you want to use the file for
+     other purposes it is important that you understand the
+     assumptions used to define the hydrogen bonds.  It is your
+     responsibility to make sure that the input Brookhaven file
+     is o.k., <em>i.e.</em>  it should not have alternate atoms, explicit
+     hydrogen atoms, <em>etc;</em> preprocessing of the Brookhaven file
+     with <em>pdb2atm(1)</em> is recommended.
+
+     The following options to <em>hbond</em> are available:
+
+     <strong>-h</strong>   Print a help message on the standard output.
+
+     <strong>-v</strong>   Be verbose in what is reported to the user, this is
+          mainly of use to see what is actually being read by
+          <em>hbond.</em>
+
+     <strong>-V</strong>   Print the version number of <em>hbond</em> on the standard
+          output.
+
+<strong>WHAT</strong> <strong>IS</strong> <strong>A</strong> <strong>HYDROGEN</strong> <strong>BOND</strong> <strong>?</strong>
+     In the interests of simplicity, a hydrogen bond (or
+     analogous interaction) is flagged if the distance between
+     the two participants in the interaction are less than a set
+     distance apart (usually 3.5). For disulphide bonds the
+     criteria is that the two sulphur atoms are less than 3.0
+     apart (note, this is a generous cutoff). Due to the larger
+     Van der Waal's radius of sulphur atoms a 4.0 cutoff is used
+     for interactions involving this element type.  No check is
+     made on the lower bound of the distance.  Interactions to
+     HETATM records are always calculated.  Some interactions
+     also have the relevent angles calculated, however this has
+     no influence as to whether an atom pair occurs in this file
+     (and is considered as a hydrogen bond). Note that angles
+     that are undefined are written as 999.99.
+
+     For mainchain to mainchain hydrogen bonds, energies are
+     calculated as in the paper of Kabsch and Sander.
+
+     The following points may need to be considered before you
+     use the program.  The first is that the amide sidechains of
+     asparagine and glutamine are assumed to be undetermined (
+     <em>i.e.</em>  you can swap the NH2 and O atoms freely), thus both
+     atoms are considered as donors and acceptors. The second
+     point is that the y atom of cysteine is considered to be a
+     possible donor and acceptor atom, additionally the d sulphur
+     of methionine is an acceptor. Finally, the protonation state
+     of an acidic residue (aspartic acid and glutamic acid is
+     considered as undefined), <em>i.e.</em>  it can be protonated and so
+     again either of the oxygen atoms can be both donors and
+     acceptors. Finally, (again) no interactions between residues
+     are considered for atoms in residues closer than two
+     residues from the central residue.
+
+     Because of the nature of the cutoff, it is likely that not
+     all the interactions reported are likely to be real hydrogen
+     bonds. However, the definition is rigid and easily
+     defendable. Other methods are likely to produce lists of
+     hydrogen bonds that are simply subsets of the ones reported
+     by <em>hbond.</em>  However, it is relatively easy either to write a
+     program that will select out the hydrogen bonds from the
+     <em>.hbd</em> file, or to change the cutoffs internally within the
+     program.
+
+<strong>FORMAT</strong> <strong>OF</strong> <strong>THE</strong> <strong>.hbd</strong> <strong>FILE</strong>
+     The <em>.hbd</em> <em>file</em> <em>contains</em> <em>a</em> <em>small</em> <em>header,</em> whether HETATM
+     records were included in the analysis.  There the follows a
+     list of the possible interactions, listed one per line, with
+     the donor listed first followed by the acceptor atom.  The
+     format for the data in the <em>.hbd</em> file is (FORTRAN format):
+     1X, I3, 1X, A5, 1X, A1, 1X, A, 1X, A3, 1X, I3, 1X, A5, 1X,
+     A1, 1X, A, 1X, A3, 1X, A3, 1X, I4, 1X, F4.2, 1X, F4.2, 1X,
+     F6.2, 1X, F6.2
+
+     Where the fields are; the index of the first residue, the
+     number of the donor residue, the chain-name of the donor
+     residue, the residue type of the donor residue, and the atom
+     type of the donor atom; this is followed by a similar set of
+     values for the acceptor atom. This information is followed
+     by the class of the hydorgen bond (see table below), an
+     integer indicating the soacing of the donor and acceptor
+     atoms (can be negative), the distance between the donor and
+     acceptor atoms, the distance between the hydrogen atom and
+     the acceptor (see below for how hydrogen positions are
+     calculated), the angle between the donor, hydrogen and
+     acceptor and finally the angle between the donor, acceptor
+     and carbonyl carbon. An example of a <em>.hbd</em> file is:
+     # produced by hbond, version 1.0c (2.3b)
+     #   parameterized for  600 residues, 20 atoms per residue, and  500 hetatoms
+     #
+     # coordinate data taken from file 2ptn.atm
+     #   number of atoms    =  1610
+     #   number of residues =   221
+     #   number of chains   =     2
+     #                        chain  1 extent from    1 to    4, of length   5
+     #                        chain  2 extent from    5 to  221, of length 216
+     #   number of hetatoms =     1
+     #
+     # criteria for hydrogen bond definition :-
+     #  donor-acceptor distance cutoff (oxygen and nitrogen) = 3.50
+     #  donor-acceptor distance cutoff (sulphur)             = 4.00
+     #  hydrogen-acceptor distance cutoff                    = none
+     #  angular criteria applied                             = none
+     #  energy criteria applied                              = none
+     #  include HETATM records                               =    T
+     #  include WATER records                                =    T
+     #
+     #----- Donor ----- ---- Acceptor ---          ------- Geometry ------ - Energy -
+     #index - res - atm index - res - atm typ span Dd-a Dh-a &lt;d-H-N &lt;a-O=C   kJ/mol
+        1   16    I N   120  142    G O   MM   119 3.29 9.99 999.99 999.99   999.99
+        1   16    I N   121  143    N O   MM   120 3.03 9.99 999.99 999.99   999.99
+        1   16    I N   174  194    D OD1 SN   173 2.72 9.99 999.99 120.26 * 999.99
+        1   16    I N   174  194    D OD2 SN   173 3.48 9.99 999.99  81.36 * 999.99
+        2   17    V N   169  189    D O   MM   167 2.82 1.85 166.93 166.76    -3.01
+        4   19    G N     2   17    V O   MM    -2 3.42 3.40  83.36  71.35      .97
+        5   22    C N   133  155    L O   MM   128 3.08 9.99 999.99 999.99   999.99
+        5   22    C SG  133  155    L O   SO   128 3.52 9.99 999.99  89.43   999.99
+        5   22    C SG  134  156    K O   SO   129 3.41 9.99 999.99  75.51   999.99
+        5   22    C SG  135  157    C SG  DS   130 2.04 9.99 999.99 999.99   999.99
+
+     The hydrogen bonds are classified using the following scheme:
+     center;
+     l    l.
+     class     meaning
+     MM   mainchain to mainchain
+     MH   mainchain to hetero atom
+     MW   mainchain to water
+     SO   sidechain to mainchain CO
+     SN   sidechain to mainchain NH
+     SS   sidechain to sidechain
+     SH   sidechain to hetero atom
+     SW   sidechain to water
+     DS   disulphide
+
+<strong>CAVEATS</strong>
+     Please bear in mind what the program is meant to do, before
+     blindly using its output. The program is likely to be
+     changed in the near future. The main limit you are likely to
+     encounter is a maximum numer of residues of 500.
+
+<strong>SEE</strong> <strong>ALSO</strong>
+     <em>pdbseq(1),</em> <em>joy(1).</em>
+
+<strong>RELEASE</strong> <strong>LEVEL</strong>
+     This document describes <em>hbond</em> version 0.7 and later.
+</pre>
+
+
+</body></html>
