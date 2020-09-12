@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[31]:
+# In[1]:
 
 
 import pandas as pd
@@ -43,7 +43,7 @@ print(sample2)
   
 
 
-# In[ ]:
+# In[4]:
 
 
 import pandas as pd
@@ -75,9 +75,27 @@ for model in structure.get_list():
         
 sample = pd.DataFrame(arr_x)
 sample2 = pd.DataFrame(arr_y)
-sample2[''] = arr_x
+
 
 print(sample2)  
+
+
+# In[8]:
+
+
+prot_id = "5AGY.pdb"
+prot_file = "5AGY.pdb"
+arr_x = [];
+arr_y = [];
+
+from Bio.PDB import PDBParser
+parser=PDBParser(PERMISSIVE=1)
+structure=parser.get_structure(prot_id, prot_file)
+model=structure[0]
+for chain in model:
+    for residue in chain:
+        for atom in residue:
+            print (chain, residue, atom, atom.get_coord())
 
 
 # In[ ]:
