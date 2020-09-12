@@ -1,3 +1,6 @@
+#Problème : -Doublon des Cystéines interagissant entre elles (A avec B et B avec A)
+#           -Si protéine pas de chaîne B --> génère une erreur
+
 prot_id = "1eej.pdb"
 prot_file = "1eej.pdb"
 
