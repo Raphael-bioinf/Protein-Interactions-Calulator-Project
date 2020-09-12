@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+
 
 
 prot_id = "5AGY.pdb"
@@ -32,7 +32,7 @@ for residue in achain:
     print()
 
 
-# In[ ]:
+
 
 
 

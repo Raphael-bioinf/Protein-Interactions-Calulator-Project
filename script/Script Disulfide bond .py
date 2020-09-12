@@ -29,7 +29,7 @@ for c1 in cysresidues:
             print (round(c1['SG'] - c2['SG'],2))
 
 
-# In[ ]:
+
 
 
 
