@@ -1,15 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[9]:
-
-
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 prot_id = "5AGY.pdb"
 prot_file = "5AGY.pdb"
 
@@ -50,10 +41,7 @@ for c3 in cysresiduesB:
                 print ("Cys",c4index,)
                 print (round(c3['SG'] - c4['SG'],2))
 
-# In[ ]:
 
-
-# In[ ]:
 
 
 
