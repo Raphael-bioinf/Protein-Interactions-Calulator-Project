@@ -7,8 +7,6 @@
 
 prot_id = "5AGY.pdb"
 prot_file = "5AGY.pdb"
-arr_x = [];
-arr_y = [];
 
 from Bio.PDB import PDBParser
 parser=PDBParser(PERMISSIVE=1)
@@ -20,7 +18,7 @@ for chain in model:
             print (chain, residue, atom, atom.get_coord())
 
 
-# In[ ]:
+
 
 
 
