@@ -5,7 +5,7 @@
 
 
 prot_id = "5AGY.pdb"
-prot_file = "5AGY.pdb"
+prot_file = "../5AGY.pdb"
 
 from Bio.PDB import PDBParser
 parser=PDBParser(PERMISSIVE=1)
