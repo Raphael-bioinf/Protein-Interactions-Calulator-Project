@@ -2,7 +2,7 @@
 #           -Si protéine pas de chaîne B --> génère une erreur
 
 prot_id = "1eej.pdb"
-prot_file = "1eej.pdb"
+prot_file = "../1eej.pdb"
 
 from Bio.PDB import PDBParser
 parser=PDBParser(PERMISSIVE=1)
