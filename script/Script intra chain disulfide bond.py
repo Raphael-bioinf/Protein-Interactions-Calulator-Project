@@ -1,8 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[8]:
-
+# Problème à régler : exprime en duplicata les interactions (A avec B et B avec A)
 
 prot_id = "1eej.pdb"
 prot_file = "1eej.pdb"
@@ -58,7 +54,7 @@ for c3 in cysresiduesB:
                 print (round(c3['SG'] - c4['SG'],2))
 
 
-# In[ ]:
+
 
 
 
