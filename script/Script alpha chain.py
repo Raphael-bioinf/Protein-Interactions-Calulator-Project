@@ -16,7 +16,7 @@ bchain = model['B']
 
 for residue in achain:
     index = residue.get_id()[1]
-    calpha = residue['CA']
+    calpha = residue['CA'] # if not -> continue
     carbon = residue['C']
     nitrogen = residue['N']
     oxygen = residue['O']

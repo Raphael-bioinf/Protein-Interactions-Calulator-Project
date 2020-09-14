@@ -14,13 +14,13 @@ model=structure[0]
 achain = model['A']
 bchain = model['B']
     
-cysresidues = []
+ionicres = []
 for residue in achain:
-    if residue.get_resname() == "CYS":
-        cysresidues.append(residue)
-for c1 in cysresidues:
+    if residue.get_resname() == "ARG":
+        ionicres.append(residue)
+for c1 in ionicres:
     c1index = c1.get_id()[1]
-    for c2 in cysresidues:
+    for c2 in ionicres:
         c2index = c2.get_id()[1]
         if(c1['SG'] - c2['SG'])< 2.2:
             print("possible di-sulfide bond:"),
