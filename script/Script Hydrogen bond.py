@@ -92,14 +92,7 @@ def hbond_main_sidefun(atom1, atom2, distON=3.5, distS=4):
                 return(d)
 
 
-def hbond_side_sidefun(atom1, atom2, distON=3.5, distS=4):
-    '''
-    Check for side-chain/side-chain hydrogen bonds using hbondfun()
-    atom1, atom2: biopython class atoms
-    distON: distance(float) cutoff in Angstrom if atom in ["O","N"]
-    distS: distance(float) cutoff in Angstrom if atom in ["S"]
-    return: distance(float)  if < distS or distON
-    '''
+def hbond_side_sidefun(atom1, atom2, distON = 3.5, distS = 4):
     name1 = atom1.get_name()
     name2 = atom2.get_name()
     if len(name1) == 2 and len(name2) == 2:

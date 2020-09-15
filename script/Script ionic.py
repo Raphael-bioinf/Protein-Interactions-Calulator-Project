@@ -13,14 +13,13 @@ structure = parser.get_structure(prot_id, prot_file)
 model = structure[0]
 
 achain = model['A']
-bchain = model['B']
+#bchain = model['B']
     
-ionic = [ "ARG",  "LYS", "HIS", "ASP", "GLU"]
+ionic = ["ARG",  "LYS", "HIS", "ASP", "GLU"]
 residues = []
 for res in achain:
     if res.get_resname() in ionic:
         residues.append(res)
-#print(residues)
 
 
 def dist_cal(x1, y1, z1, x2, y2, z2):
@@ -78,6 +77,7 @@ def ionicfun(atom1, atom2, resid1, resid2, dist = 6):
     ):
         d = atom1 - atom2
         if d < dist:
+            print("Res1 =", resid1.get_resname(), atom1.get_name(),"Res2 =", resid2.get_resname(), atom2.get_name(), "dist =", d)
             return(d)
 
 

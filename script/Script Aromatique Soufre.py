@@ -8,6 +8,7 @@ prot_id = "5AGY.pdb"
 prot_file = "../data/5AGY.pdb"
 
 from Bio.PDB import Atom
+from math import sqrt
 from Bio.PDB import PDBParser
 
 parser = PDBParser(PERMISSIVE=1)
@@ -31,17 +32,6 @@ def dist_cal(x1, y1, z1, x2, y2, z2):
     return(dist)
 
 
-def dist_center_mass_calc(resid1, resid2):
-    dist = dist_cal(
-        x1=resid1.center_mass[0],
-        y1=resid1.center_mass[1],
-        z1=resid1.center_mass[2],
-        x2=resid2.center_mass[0],
-        y2=resid2.center_mass[1],
-        z2=resid2.center_mass[2])
-    return(dist)
-
-
 def center_mass(resid):
     xmean = 0
     ymean = 0
@@ -55,6 +45,7 @@ def center_mass(resid):
         xmean = xmean / 6
         ymean = ymean / 6
         zmean = zmean / 6
+        resid.center_mass = (xmean, ymean, zmean)
     elif resid.get_resname() == "TRP":
         for atom in resid:
             if atom.get_name() in ["CD2", "CE2", "CZ2", "CH2", "CZ3", "CE3"]:
@@ -66,6 +57,7 @@ def center_mass(resid):
         zmean = zmean / 6
     resid.center_mass = (xmean, ymean, zmean)
     return(resid)
+
 
 dist = 5.3
 for res1 in residues:
@@ -80,11 +72,11 @@ for res1 in residues:
                         s_coord[0],
                         s_coord[1],
                         s_coord[2],
-                        res2.center_mass[0], #need to correct "AttributeError: 'Residue' object has no attribute 'center_mass'" error
-                        res2.center_mass[1], #need to correct "AttributeError: 'Residue' object has no attribute 'center_mass'" error
-                        res2.center_mass[2]) #need to correct "AttributeError: 'Residue' object has no attribute 'center_mass'" error
+                        center_mass(res2).center_mass[0], 
+                        center_mass(res2).center_mass[1], 
+                        center_mass(res2).center_mass[2]) 
                     if d < dist:
-                        print(d)
+                        print(res1.get_resname(), res2.get_resname(), d)
         elif (res2.get_resname() in sulres and res1.get_resname() not in sulres):
             for atom in res2:
                 if "S" in atom.get_name():
@@ -93,8 +85,8 @@ for res1 in residues:
                         s_coord[0],
                         s_coord[1],
                         s_coord[2],
-                        res1.center_mass[0], #need to correct "AttributeError: 'Residue' object has no attribute 'center_mass'" error
-                        res1.center_mass[1], #need to correct "AttributeError: 'Residue' object has no attribute 'center_mass'" error
-                        res1.center_mass[2]) #need to correct "AttributeError: 'Residue' object has no attribute 'center_mass'" error
+                        center_mass(res1).center_mass[0], 
+                        center_mass(res1).center_mass[1], 
+                        center_mass(res1).center_mass[2])
                     if d < dist:
-                        print(d)
+                        print(res1.get_resname(), res2.get_resname(), d)
