@@ -17,6 +17,62 @@ achain = model['A']
 bchain = model['B']
 
 
+amino = {
+    "hydrophobic": [
+        "ALA",
+        "VAL",
+        "LEU",
+        "ILE",
+        "MET",
+        "PHE",
+        "TRP",
+        "PRO",
+        "TYR"],
+    "disulphide": ["CYS"],
+    "ionic": [
+        "ARG",
+        "LYS",
+        "HIS",
+        "ASP",
+        "GLU"],
+    "aroaro": [
+        "PHE",
+        "TRP",
+        "TYR"],
+    "arosul": [
+        "PHE",
+        "TRP",
+        "TYR",
+        "CYS",
+        "MET"],
+    "cationpi": [
+        "LYS",
+        "ARG",
+        "PHE",
+        "TRP",
+        "TYR"],
+    "all": [
+        "ALA",
+        "GLY",
+        "ILE",
+        "LEU",
+        "PRO",
+        "VAL",
+        "PHE",
+        "TRP",
+        "TYR",
+        "ASP",
+        "GLU",
+        "ARG",
+        "HIS",
+        "LYS",
+        "SER",
+        "THR",
+        "CYS",
+        "MET",
+        "ASN",
+        "GLN"]}
+
 arom_res = []
 for residue in achain:
     if (residue.get_resname() == "HIS" or residue.get_resname() == "TRP" or residue.get_resname() == "TYR" or residue.get_resname() == "PHE" or residue.get_resname() == "CYS" or residue.get_resname() == "MET"):
