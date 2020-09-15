@@ -17,7 +17,7 @@ ionic = ["ARG",  "LYS", "HIS", "ASP", "GLU"]
 residues = []
 
 
-for chain in model:
+for chain in model: # protéine -> chaîne -> résidues impliqués dans interactions ioniques
     for res in chain:
         if res.get_resname() in ionic:
             residues.append(res)

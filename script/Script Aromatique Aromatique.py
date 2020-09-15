@@ -20,7 +20,7 @@ aroaro = ["PHE",  "TRP", "TYR"]
 residues = []
 
 
-for chain in model:
+for chain in model: # protéine -> chaîne -> résidues impliqués dans interactions aromatiques / aromatiques
     for res in chain:
         if res.get_resname() in aroaro:
             residues.append(res)
@@ -31,12 +31,12 @@ def dist_cal(x1, y1, z1, x2, y2, z2): # fonction calculant la distance euclidien
     return(dist)
 
 
-def dist_center_mass_calc(resid1, resid2):
+def dist_center_coord(resid1, resid2): # calcul coordonnées centre cycles aromatiques
     xmean = 0
     ymean = 0
     zmean = 0
     
-    if resid1.get_resname() in ["PHE", "TYR"]:
+    if resid1.get_resname() in ["PHE", "TYR"]: # cycle 1
         for atom in resid1:
             if atom.get_name() in ["CG", "CD1", "CE1", "CZ", "CE2", "CD2"]:
                 xmean = xmean + atom.get_coord()[0]
@@ -57,7 +57,7 @@ def dist_center_mass_calc(resid1, resid2):
         zmean = zmean / 6
     resid1_center_mass = (xmean, ymean, zmean)
     
-    if resid2.get_resname() in ["PHE", "TYR"]:
+    if resid2.get_resname() in ["PHE", "TYR"]: # cycle 2
         for atom in resid2:
             if atom.get_name() in ["CG", "CD1", "CE1", "CZ", "CE2", "CD2"]:
                 xmean = xmean + atom.get_coord()[0]
@@ -88,9 +88,9 @@ def dist_center_mass_calc(resid1, resid2):
     return(dist)
 
 
-def aroarofun(resid1, resid2, dmin = 4.5, dmax = 7): # détermine si une distance correspond à une interaction entre AA aromatique
+def aro_aro(resid1, resid2, dmin = 4.5, dmax = 7): # détermine si une distance correspond à une interaction entre AA aromatique
 
-    d = dist_center_mass_calc(resid1, resid2)
+    d = dist_center_coord(resid1, resid2)
 
     if (d > dmin) and (d < dmax):
         print(resid1.get_resname(), resid1.get_id()[1], resid2.get_resname(), resid2.get_id()[1], "dist =", d)
@@ -99,4 +99,4 @@ def aroarofun(resid1, resid2, dmin = 4.5, dmax = 7): # détermine si une distanc
 
 for res1 in residues:
     for res2 in residues:
-        aroarofun(res1, res2)
+        aro_aro(res1, res2) # appel fonction aro_aro

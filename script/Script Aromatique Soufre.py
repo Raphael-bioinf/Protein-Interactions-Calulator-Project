@@ -31,7 +31,7 @@ def dist_cal(x1, y1, z1, x2, y2, z2): # fonction calculant la distance euclidien
     return(dist)
 
 
-def center_mass(resid): # calcul des coordonnées des centres des cycles
+def center_coord(resid): # calcul des coordonnées des centres des cycles
     xmean = 0
     ymean = 0
     zmean = 0
@@ -71,9 +71,9 @@ for res1 in residues:
                         s_coord[0],
                         s_coord[1],
                         s_coord[2],
-                        center_mass(res2).center_mass[0], 
-                        center_mass(res2).center_mass[1], 
-                        center_mass(res2).center_mass[2]) 
+                        center_coord(res2).center_mass[0], 
+                        center_coord(res2).center_mass[1], 
+                        center_coord(res2).center_mass[2]) 
                     if d < dist:
                         print(res1.get_resname(), res1.get_id()[1], res2.get_resname(), res2.get_id()[1], "dist =", d)
         elif (res2.get_resname() in sulres and res1.get_resname() not in sulres):
@@ -84,8 +84,8 @@ for res1 in residues:
                         s_coord[0],
                         s_coord[1],
                         s_coord[2],
-                        center_mass(res1).center_mass[0], 
-                        center_mass(res1).center_mass[1], 
-                        center_mass(res1).center_mass[2])
+                        center_coord(res1).center_mass[0], 
+                        center_coord(res1).center_mass[1], 
+                        center_coord(res1).center_mass[2])
                     if d < dist:
                         print(res1.get_resname(), res1.get_id()[1], res2.get_resname(), res2.get_id()[1], "dist =", d)
