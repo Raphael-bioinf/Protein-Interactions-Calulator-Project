@@ -11,116 +11,92 @@ from Bio.PDB import PDBParser
 parser = PDBParser(PERMISSIVE=1)
 structure = parser.get_structure(prot_id, prot_file)
 model = structure[0]
+from Bio.PDB import Atom
 
 
 achain = model['A']
 bchain = model['B']
 
 
-amino = {
-    "hydrophobic": [
-        "ALA",
-        "VAL",
-        "LEU",
-        "ILE",
-        "MET",
-        "PHE",
-        "TRP",
-        "PRO",
-        "TYR"],
-    "disulphide": ["CYS"],
-    "ionic": [
-        "ARG",
-        "LYS",
-        "HIS",
-        "ASP",
-        "GLU"],
-    "aroaro": [
-        "PHE",
-        "TRP",
-        "TYR"],
-    "arosul": [
-        "PHE",
-        "TRP",
-        "TYR",
-        "CYS",
-        "MET"],
-    "cationpi": [
-        "LYS",
-        "ARG",
-        "PHE",
-        "TRP",
-        "TYR"],
-    "all": [
-        "ALA",
-        "GLY",
-        "ILE",
-        "LEU",
-        "PRO",
-        "VAL",
-        "PHE",
-        "TRP",
-        "TYR",
-        "ASP",
-        "GLU",
-        "ARG",
-        "HIS",
-        "LYS",
-        "SER",
-        "THR",
-        "CYS",
-        "MET",
-        "ASN",
-        "GLN"]}
+arosul = ["PHE", "TRP",  "TYR", "CYS", "MET"]
 
-arom_res = []
-for residue in achain:
-    if (residue.get_resname() == "HIS" or residue.get_resname() == "TRP" or residue.get_resname() == "TYR" or residue.get_resname() == "PHE" or residue.get_resname() == "CYS" or residue.get_resname() == "MET"):
-        arom_res.append(residue)
+residues = []
+for res in achain:
+    if res.get_resname() in arosul:
+        residues.append(res)
+#print(residues)
+
+
+def dist_cal(x1, y1, z1, x2, y2, z2):
+    dist = sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
+    return(dist)
+    
+def dist_center_mass_calc(resid1, resid2):
+    dist = dist_cal(
+        x1=resid1.center_mass[0],
+        y1=resid1.center_mass[1],
+        z1=resid1.center_mass[2],
+        x2=resid2.center_mass[0],
+        y2=resid2.center_mass[1],
+        z2=resid2.center_mass[2])
+    return(dist)
+
+
+def center_mass(resid):
+    xmean = 0
+    ymean = 0
+    zmean = 0
+    if resid.get_resname() in ["PHE", "TYR"]:
+        for atom in resid:
+            if atom.get_name() in ["CG", "CD1", "CE1", "CZ", "CE2", "CD2"]:
+                xmean = xmean + atom.get_coord()[0]
+                ymean = ymean + atom.get_coord()[1]
+                zmean = zmean + atom.get_coord()[2]
+        xmean = xmean / 6
+        ymean = ymean / 6
+        zmean = zmean / 6
+    elif resid.get_resname() == "TRP":
+        for atom in resid:
+            if atom.get_name() in ["CD2", "CE2", "CZ2", "CH2", "CZ3", "CE3"]:
+                xmean = xmean + atom.get_coord()[0]
+                ymean = ymean + atom.get_coord()[1]
+                zmean = zmean + atom.get_coord()[2]
+        xmean = xmean / 6
+        ymean = ymean / 6
+        zmean = zmean / 6
+    resid.center_mass = (xmean, ymean, zmean)
+    return(resid)
+
+def __init__(res, x):
+    res.center_mass(x)
+
+for res1 in residues:
+    for res2 in residues:
+        sulres = ["CYS", "MET"]
         
-        for c1 in arom_res:
-            c1index = c1.get_id()[1]
-            
-            for c2 in arom_res:
-                c2index = c2.get_id()[1]
-                
-                if(c1['C'] - c2['S'] < 6 and c1['C'] - c2['S'] > 5):
-                    print("possible aromatic - sulfure interaction:"),
-                    print (residue,c1index,"-")
-                    print (residue,c2index,)
-                    print (round(c1['OE2'] - c2['N'],2))
-                    
-                    
-                    
-                    
-
-
-
-def arosulfun(resid1, resid2, dist=5.3):
-    sulres = ["CYS", "MET"]
-    if (resid1.get_resname() in sulres and resid2.get_resname() not in sulres):
-        for atom in resid1:
-            if "S" in atom.get_name():
-                s_coord = atom.get_coord()
-                d = dist_cal(
-                    s_coord[0],
-                    s_coord[1],
-                    s_coord[2],
-                    resid2.center_mass[0],
-                    resid2.center_mass[1],
-                    resid2.center_mass[2])
-                if d < dist:
-                    return(d)
-    elif (resid2.get_resname() in sulres and resid1.get_resname() not in sulres):
-        for atom in resid2:
-            if "S" in atom.get_name():
-                s_coord = atom.get_coord()
-                d = dist_cal(
-                    s_coord[0],
-                    s_coord[1],
-                    s_coord[2],
-                    resid1.center_mass[0],
-                    resid1.center_mass[1],
-                    resid1.center_mass[2])
-                if d < dist:
-                    return(d)
+        if (res1.get_resname() in sulres and res2.get_resname() not in sulres):
+            for atom in res1:
+                if "S" in atom.get_name():
+                    s_coord = atom.get_coord()
+                    d = dist_cal(
+                        s_coord[0],
+                        s_coord[1],
+                        s_coord[2],
+                        res2.center_mass[0],
+                        res2.center_mass[1],
+                        res2.center_mass[2])
+                    if d < dist:
+                        print(d)
+        elif (res2.get_resname() in sulres and res1.get_resname() not in sulres):
+            for atom in res2:
+                if "S" in atom.get_name():
+                    s_coord = atom.get_coord()
+                    d = dist_cal(
+                        s_coord[0],
+                        s_coord[1],
+                        s_coord[2],
+                        res1.center_mass[0],
+                        res1.center_mass[1],
+                        res1.center_mass[2])
+                    if d < dist:
+                        print(d)
