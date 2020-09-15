@@ -14,7 +14,7 @@ structure=parser.get_structure(prot_id, prot_file)
 model=structure[0]
 
 #Le parser de Biopython est strucutré de manière Structure/model/chain/residu/atome
-
+cysresidues = []
 for chain in model:
     for residue in chain:
         # On sélectionne uniquement les résidue de Cystéine responsable des liaison disulfide
