@@ -65,7 +65,7 @@ def center_mass(resid):
     resid.center_mass = (xmean, ymean, zmean)
     return(resid)
 
-def aroarofun(resid1, resid2, dmin=4.5, dmax=7):
+def aroarofun(resid1, resid2, dmin = 4.5, dmax = 7):
 
     d = dist_center_mass_calc(resid1, resid2)
 
