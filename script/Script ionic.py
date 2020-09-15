@@ -77,12 +77,13 @@ def ionicfun(atom1, atom2, resid1, resid2, dist = 6):
     ):
         d = atom1 - atom2
         if d < dist:
-            print("Res1 =", resid1.get_resname(), atom1.get_name(),"Res2 =", resid2.get_resname(), atom2.get_name(), "dist =", d)
+            print(resid1.get_resname(), resid1.get_id()[1],resid2.get_resname(), resid2.get_id()[1], "dist =", d)
             return(d)
 
 
+reverse_residues = residues[::-1]
 for res1 in residues:
-    for res2 in residues:
+    for res2 in reverse_residues:
         for atom1 in res1:
             for atom2 in res2:
                 ionicfun(atom1, atom2, res1, res2)
