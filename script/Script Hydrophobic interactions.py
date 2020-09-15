@@ -40,6 +40,6 @@ for r1 in residuesA:
                     except KeyError:
                         continue
                     if(r1[r1name] - r2[r2name])< 5:
-                        print("possible hydrophobic interactions in chain:",residue.get_parent()),
+                        print("possible hydrophobic interactions in chains:",r1.get_parent(),r2.get_parent())
                         print (r1.get_resname(),r1index,"-",r2.get_resname(),r2index,)
                         print (round(r1[r1name] - r2[r2name],2))
