@@ -27,7 +27,7 @@ for res in achain:
 #print(residues)
 
 
-def dist_cal(x1, y1, z1, x2, y2, z2):
+def dist_cal(x1, y1, z1, x2, y2, z2): # fonction calculant la distance euclidienne entre 2 points de coordonnées x, y & z
     dist = sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
     return(dist)
 
@@ -89,7 +89,7 @@ def dist_center_mass_calc(resid1, resid2):
     return(dist)
 
 
-def aroarofun(resid1, resid2, dmin = 4.5, dmax = 7):
+def aroarofun(resid1, resid2, dmin = 4.5, dmax = 7): # détermine si une distance correspond à une interaction entre AA aromatique
 
     d = dist_center_mass_calc(resid1, resid2)
 
@@ -100,5 +100,4 @@ def aroarofun(resid1, resid2, dmin = 4.5, dmax = 7):
 
 for res1 in residues:
     for res2 in residues:
-        #print(res1, res2)
         aroarofun(res1, res2)
