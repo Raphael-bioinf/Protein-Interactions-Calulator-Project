@@ -28,7 +28,7 @@ for chain in model:
             if(c1index!=c2index):
                  # On conditionne la présence d'une liaison disulfide à une distance de 2.2 Angström
                 if(c1['SG'] - c2['SG'])< 2.2:
-                    print("possible di-sulfide bond:"),
+                    print("possible di-sulfide bond:",r1.get_parent(),r2.get_parent())
                     print ("Cys",c1index,"-")
                     print ("Cys",c2index,)
                     print (round(c1['SG'] - c2['SG'],2))
