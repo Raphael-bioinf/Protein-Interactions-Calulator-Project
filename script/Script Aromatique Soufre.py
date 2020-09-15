@@ -7,19 +7,18 @@
 prot_id = "5AGY.pdb"
 prot_file = "../data/5AGY.pdb"
 
+from Bio.PDB import Atom
 from Bio.PDB import PDBParser
+
 parser = PDBParser(PERMISSIVE=1)
 structure = parser.get_structure(prot_id, prot_file)
 model = structure[0]
-from Bio.PDB import Atom
-
 
 achain = model['A']
 bchain = model['B']
 
 
 arosul = ["PHE", "TRP",  "TYR", "CYS", "MET"]
-
 residues = []
 for res in achain:
     if res.get_resname() in arosul:
@@ -30,7 +29,8 @@ for res in achain:
 def dist_cal(x1, y1, z1, x2, y2, z2):
     dist = sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
     return(dist)
-    
+
+
 def dist_center_mass_calc(resid1, resid2):
     dist = dist_cal(
         x1=resid1.center_mass[0],
@@ -67,9 +67,7 @@ def center_mass(resid):
     resid.center_mass = (xmean, ymean, zmean)
     return(resid)
 
-def __init__(res, x):
-    res.center_mass(x)
-
+dist = 5.3
 for res1 in residues:
     for res2 in residues:
         sulres = ["CYS", "MET"]
@@ -82,9 +80,9 @@ for res1 in residues:
                         s_coord[0],
                         s_coord[1],
                         s_coord[2],
-                        res2.center_mass[0],
-                        res2.center_mass[1],
-                        res2.center_mass[2])
+                        res2.center_mass[0], #need to correct "AttributeError: 'Residue' object has no attribute 'center_mass'" error
+                        res2.center_mass[1], #need to correct "AttributeError: 'Residue' object has no attribute 'center_mass'" error
+                        res2.center_mass[2]) #need to correct "AttributeError: 'Residue' object has no attribute 'center_mass'" error
                     if d < dist:
                         print(d)
         elif (res2.get_resname() in sulres and res1.get_resname() not in sulres):
@@ -95,8 +93,8 @@ for res1 in residues:
                         s_coord[0],
                         s_coord[1],
                         s_coord[2],
-                        res1.center_mass[0],
-                        res1.center_mass[1],
-                        res1.center_mass[2])
+                        res1.center_mass[0], #need to correct "AttributeError: 'Residue' object has no attribute 'center_mass'" error
+                        res1.center_mass[1], #need to correct "AttributeError: 'Residue' object has no attribute 'center_mass'" error
+                        res1.center_mass[2]) #need to correct "AttributeError: 'Residue' object has no attribute 'center_mass'" error
                     if d < dist:
                         print(d)
