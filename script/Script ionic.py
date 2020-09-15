@@ -12,14 +12,15 @@ parser = PDBParser(PERMISSIVE=1)
 structure = parser.get_structure(prot_id, prot_file)
 model = structure[0]
 
-achain = model['A']
-bchain = model['B']
     
 ionic = ["ARG",  "LYS", "HIS", "ASP", "GLU"]
 residues = []
-for res in achain:
-    if res.get_resname() in ionic:
-        residues.append(res)
+
+
+for chain in model:
+    for res in chain:
+        if res.get_resname() in ionic:
+            residues.append(res)
 
 
 def center_mass(resid):

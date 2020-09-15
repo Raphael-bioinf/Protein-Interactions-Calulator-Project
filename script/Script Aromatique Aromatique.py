@@ -14,17 +14,16 @@ from Bio.PDB import PDBParser
 parser = PDBParser(PERMISSIVE=1)
 structure = parser.get_structure(prot_id, prot_file)
 model = structure[0]
-
-achain = model['A']
-bchain = model['B']
     
 
 aroaro = ["PHE",  "TRP", "TYR"]
 residues = []
-for res in achain:
-    if res.get_resname() in aroaro:
-        residues.append(res)
-#print(residues)
+
+
+for chain in model:
+    for res in chain:
+        if res.get_resname() in aroaro:
+            residues.append(res)
 
 
 def dist_cal(x1, y1, z1, x2, y2, z2): # fonction calculant la distance euclidienne entre 2 points de coordonnées x, y & z
@@ -94,7 +93,7 @@ def aroarofun(resid1, resid2, dmin = 4.5, dmax = 7): # détermine si une distanc
     d = dist_center_mass_calc(resid1, resid2)
 
     if (d > dmin) and (d < dmax):
-        print(resid1.get_resname(), resid1.get_id()[1], resid2.get_resname(), resid2.get_id()[2], "dist =", d)
+        print(resid1.get_resname(), resid1.get_id()[1], resid2.get_resname(), resid2.get_id()[1], "dist =", d)
         return(d)
 
 

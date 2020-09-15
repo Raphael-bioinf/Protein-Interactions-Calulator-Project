@@ -11,17 +11,17 @@ from Bio.PDB import PDBParser
 parser=PDBParser(PERMISSIVE=1)
 structure=parser.get_structure(prot_id, prot_file)
 model=structure[0]
-achain = model['A']
-bchain = model['B']
+
+
+hydrogen = 
+reidues = []
+for chain in model:
+    for res in chain:
+        if res.get_resname() in hydrogen:
+            residues.append(res)
+
     
-def hbondfun(acceptor, donnor, distON=3.5, distS=4):
-    '''
-    Check for hydrogen bonds
-    acceptor, donnor: biopython class atoms
-    distON: distance(float) cutoff in Angstrom if atom in ["O","N"]
-    distS: distance(float) cutoff in Angstrom if atom in ["S"]
-    return: distance(float)  if < distS or distON
-    '''
+def hbondfun(acceptor, donnor, distON = 3.5, distS = 4):
     d = acceptor - donnor
     if "O" in acceptor.get_name() or "N" in acceptor.get_name():
         if d < distON:
@@ -31,14 +31,7 @@ def hbondfun(acceptor, donnor, distON=3.5, distS=4):
             return(d)
 
 
-def hbond_main_mainfun(atom1, atom2, distON=3.5, distS=4):
-    '''
-    Check for main-chain/main-chain hydrogen bonds using hbondfun()
-    atom1, atom2: biopython class atoms
-    distON: distance(float) cutoff in Angstrom if atom in ["O","N"]
-    distS: distance(float) cutoff in Angstrom if atom in ["S"]
-    return: distance(float)  if < distS or distON
-    '''
+def hbond_main_mainfun(atom1, atom2, distON = 3.5, distS = 4):
     name1 = atom1.get_name()
     name2 = atom2.get_name()
     if len(name1) == 1 and len(name2) == 1:
@@ -52,42 +45,35 @@ def hbond_main_mainfun(atom1, atom2, distON=3.5, distS=4):
                 return(d)
         elif name2 == "O" and name1 == "H":
             d = hbondfun(
-                acceptor=atom2,
-                donnor=atom1,
-                distON=distON,
-                distS=distS)
+                acceptor = atom2,
+                donnor = atom1,
+                distON = distON,
+                distS = distS)
             if d:
                 return(d)
 
 
-def hbond_main_sidefun(atom1, atom2, distON=3.5, distS=4):
-    '''
-    Check for main-chain/side-chain hydrogen bonds using hbondfun()
-    atom1, atom2: biopython class atoms
-    distON: distance(float) cutoff in Angstrom if atom in ["O","N"]
-    distS: distance(float) cutoff in Angstrom if atom in ["S"]
-    return: distance(float)  if < distS or distON
-    '''
+def hbond_main_sidefun(atom1, atom2, distON = 3.5, distS = 4):
     name1 = atom1.get_name()
     name2 = atom2.get_name()
     if len(name1) == 1 and len(name2) == 2:
         if (name1 in ["O", "N", "S"]) and (
                 "O" in name2 or "N" in name2 or "S" in name2):
             d = hbondfun(
-                acceptor=atom1,
-                donnor=atom2,
-                distON=distON,
-                distS=distS)
+                acceptor = atom1,
+                donnor = atom2,
+                distON = distON,
+                distS = distS)
             if d:
                 return(d)
     if len(name1) == 2 and len(name2) == 1:
         if (name2 in ["O", "N", "S"]) and (
                 "O" in name1 or "N" in name1 or "S" in name1):
             d = hbondfun(
-                acceptor=atom1,
-                donnor=atom2,
-                distON=distON,
-                distS=distS)
+                acceptor = atom1,
+                donnor = atom2,
+                distON = distON,
+                distS = distS)
             if d:
                 return(d)
 
@@ -99,18 +85,18 @@ def hbond_side_sidefun(atom1, atom2, distON = 3.5, distS = 4):
         if ("O" in name2 or "N" in name2 or "S" in name2) and (
                 "O" in name1 or "N" in name1):
             d = hbondfun(
-                acceptor=atom2,
-                donnor=atom1,
-                distON=distON,
-                distS=distS)
+                acceptor = atom2,
+                donnor = atom1,
+                distON = distON,
+                distS = distS)
             if d:
                 return(d)
         elif ("O" in name1 or "N" in name1 or "S" in name1) and ("O" in name2 or "N" in name2):
             d = hbondfun(
-                acceptor=atom1,
-                donnor=atom2,
-                distON=distON,
-                distS=distS)
+                acceptor = atom1,
+                donnor = atom2,
+                distON = distON,
+                distS = distS)
             if d:
                 return(d)
 

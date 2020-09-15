@@ -11,28 +11,27 @@ from Bio.PDB import Atom
 from math import sqrt
 from Bio.PDB import PDBParser
 
-parser = PDBParser(PERMISSIVE=1)
+parser = PDBParser(PERMISSIVE = 1)
 structure = parser.get_structure(prot_id, prot_file)
 model = structure[0]
 
-achain = model['A']
-bchain = model['B']
 
-
-arosul = ["PHE", "TRP",  "TYR", "CYS", "MET"]
+arosul = ["PHE", "TRP",  "TYR", "CYS", "MET"] # AA impliqués dans des interactions cycle aromatique - soufre
 residues = []
-for res in achain:
-    if res.get_resname() in arosul:
-        residues.append(res)
-#print(residues)
 
 
-def dist_cal(x1, y1, z1, x2, y2, z2):
+for chain in model:
+    for res in chain:
+        if res.get_resname() in arosul:
+            residues.append(res)
+
+
+def dist_cal(x1, y1, z1, x2, y2, z2): # fonction calculant la distance euclidienne entre 2 points de coordonnées x, y & z
     dist = sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
     return(dist)
 
 
-def center_mass(resid):
+def center_mass(resid): # calcul des coordonnées des centres des cycles
     xmean = 0
     ymean = 0
     zmean = 0
@@ -76,7 +75,7 @@ for res1 in residues:
                         center_mass(res2).center_mass[1], 
                         center_mass(res2).center_mass[2]) 
                     if d < dist:
-                        print(res1.get_resname(), res2.get_resname(), d)
+                        print(res1.get_resname(), res1.get_id()[1], res2.get_resname(), res2.get_id()[1], "dist =", d)
         elif (res2.get_resname() in sulres and res1.get_resname() not in sulres):
             for atom in res2:
                 if "S" in atom.get_name():
@@ -89,4 +88,4 @@ for res1 in residues:
                         center_mass(res1).center_mass[1], 
                         center_mass(res1).center_mass[2])
                     if d < dist:
-                        print(res1.get_resname(), res2.get_resname(), d)
+                        print(res1.get_resname(), res1.get_id()[1], res2.get_resname(), res2.get_id()[1], "dist =", d)
