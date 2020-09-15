@@ -13,29 +13,13 @@ structure = parser.get_structure(prot_id, prot_file)
 model = structure[0]
 
 achain = model['A']
-#bchain = model['B']
+bchain = model['B']
     
 ionic = ["ARG",  "LYS", "HIS", "ASP", "GLU"]
 residues = []
 for res in achain:
     if res.get_resname() in ionic:
         residues.append(res)
-
-
-def dist_cal(x1, y1, z1, x2, y2, z2):
-    dist = sqrt((x1 - x2)**2 + (y1 - y2)**2 + (z1 - z2)**2)
-    return(dist)
-
-
-def dist_center_mass_calc(resid1, resid2):
-    dist = dist_cal(
-        x1=resid1.center_mass[0],
-        y1=resid1.center_mass[1],
-        z1=resid1.center_mass[2],
-        x2=resid2.center_mass[0],
-        y2=resid2.center_mass[1],
-        z2=resid2.center_mass[2])
-    return(dist)
 
 
 def center_mass(resid):
@@ -81,9 +65,8 @@ def ionicfun(atom1, atom2, resid1, resid2, dist = 6):
             return(d)
 
 
-reverse_residues = residues[::-1]
 for res1 in residues:
-    for res2 in reverse_residues:
+    for res2 in residues:
         for atom1 in res1:
             for atom2 in res2:
                 ionicfun(atom1, atom2, res1, res2)
