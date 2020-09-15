@@ -13,6 +13,13 @@ residuescationA = []
 residuesPIA = []
 listeA=[]
 
+parser=argparse.ArgumentParser(
+    description='''Ce programme identifie les liaisons cations-pi à partir d'un fichier Protein Data Bank (PDB). Les critères pris en compte proviennent du Protein Interaction Calculator que l'on peut retrouver en suivant le lien : http://pic.mbu.iisc.ernet.in/PIC_Criteria.pdf. Le parser de Biopython est strucutré de la manière suivante : Structure/model/chain/residu/atome Fonctions utilisées :''',
+    epilog="""Je vous souhaite une bonne utilisation du programme.""")
+parser.add_argument('parser.get_structure', type=int, default=42, help='Creation of a structure object from a PDB file')
+parser.add_argument('objet.get_name', type=int, default=43, help='Renvoie le nom correspondant à l objet : Structure/model/chain/residu/atome')
+parser.add_argument('atom.get_id', type=int, default=44, help='Renvoie le numéro rattaché au résidue dans le fichier PDB')
+args=parser.parse_args()
 
 for chain in model:
     cationAA=["LYS","ARG"]
