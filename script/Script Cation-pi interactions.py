@@ -78,7 +78,7 @@ h=0
 while h< len(listeA):
     a=listeA[h]
     x=listeA.count(a)
-    if x>=5:
+    if x>=6:
         print(a)
     h=h+1
 
