@@ -13,6 +13,15 @@ parser=PDBParser(PERMISSIVE=1)
 structure=parser.get_structure(prot_id, prot_file)
 model=structure[0]
 
+import sys
+if "-h" in sys.argv or "--help" in sys.argv:
+    print ("Ce programme identifie les liaisons cations-pi à partir d'un fichier Protein Data Bank (PDB). Les critères pris en compte proviennent du Protein Interaction Calculator que l'on peut retrouver en suivant le lien : http://pic.mbu.iisc.ernet.in/PIC_Criteria.pdf. Le parser de Biopython est strucutré de la manière suivante : Structure/model/chain/residu/atome.")
+    print ("Fonctions utilisées :")
+    print ('parser.get_structure -->  ', 'Creation of a structure object from a PDB file')
+    print ('objet.get_name -->  ', 'Renvoie le nom correspondant à l objet : Structure/model/chain/residu/atome')
+    print ('parser.get_structur -->e  ', 'Renvoie le numéro rattaché au résidue dans le fichier PDB')
+    print ('')
+    
 residuescationA = []
 residuesPIA = []
 listeA=[]
