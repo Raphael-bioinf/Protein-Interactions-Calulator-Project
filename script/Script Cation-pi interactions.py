@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[21]:
-
 import sys
 
 prot_id = "4rcn.pdb"
 prot_file = sys.argv[1] #"4rcn.pdb"
 
+#On va utiliser le parser de Biopython qui nous permet d'accéder aux éléments d'un fichier PDB.
 from Bio.PDB import PDBParser
 parser=PDBParser(PERMISSIVE=1)
 structure=parser.get_structure(prot_id, prot_file)
 model=structure[0]
 
+#On définit la fonction help qui peut être appelé pour une présentation du programme et des fonctions utilisées
 if "-h" in sys.argv or "--help" in sys.argv:
     print ("Ce programme identifie les liaisons cations-pi à partir d'un fichier Protein Data Bank (PDB). Les critères pris en compte proviennent du Protein Interaction Calculator que l'on peut retrouver en suivant le lien : http://pic.mbu.iisc.ernet.in/PIC_Criteria.pdf. Le parser de Biopython est strucutré de la manière suivante : Structure/model/chain/residu/atome.")
     print ("Fonctions utilisées :")
@@ -25,7 +25,7 @@ residuescationA = []
 residuesPIA = []
 listeA=[]
 
-
+#Cette première boucle définit et filtre les acides aminés d'intérêts pour les intéractions cation-pi
 for chain in model:
     cationAA=["LYS","ARG"]
     PIAA=["PHE","TRP","TYR"]
@@ -35,7 +35,8 @@ for chain in model:
         if residue.get_resname() in PIAA:
                 residuesPIA.append(residue)
    
-    
+#Cette boucle nous permet de sélectionner les atomes responsables des interactions cations-pi puis de filtrer ceux respectant notre critère de distance.
+#Ils sont ensuite stocké dans la une liste
 for r1 in residuescationA:
     cation=['NH1','NH2','NZ']
     for atom in r1:
@@ -73,7 +74,7 @@ for r1 in residuesPIA:
                     #print (round(r1[r1name] - r2[r2name],2)) 
 
                 
-
+#cette boucle while nous permet de ne ressortir que les résidus présentant 6 interactions différentes ( pour les 6 carbones du cycle aromatique)
 h=0                   
 while h< len(listeA):
     a=listeA[h]
