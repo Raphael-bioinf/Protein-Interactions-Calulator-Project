@@ -2,5 +2,8 @@
  Projet PIC 
 
 # Utilisation
- You can use the Projet.ipynb for a better experience.
-Each important script is in a separated cell.
+ Vous pouvez utiliser le notebook Jupyter Projet.ipynb pour une meilleure expérience.
+ Chaque script nécessaire se trouve dans une cellule séparée.
+ 
+# Rapport du projet
+ Le rapport (Rapport - Projet Court - R Bodin & L Maury.pdf) se trouve dans le répertoire 'result'.
