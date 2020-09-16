@@ -2,7 +2,7 @@
 # coding: utf-8
 
 prot_id = "1eej.pdb"
-prot_file = "1eej.pdb"
+prot_file = "../data/1eej.pdb"
 
 from Bio.PDB import PDBParser
 parser=PDBParser(PERMISSIVE=1)
