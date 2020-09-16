@@ -37,9 +37,11 @@ for chain in model:
    
     
 for r1 in residuescationA:
+    cation=['NH1','NH2','NZ']
     for atom in r1:
         r1name=atom.get_name()
-        r1index = r1.get_id()[1]
+        if r1name in cation:
+            r1index = r1.get_id()[1]
     for r2 in residuesPIA:
         for atom in r2:
             r2name=atom.get_name()
@@ -57,9 +59,11 @@ for r1 in residuesPIA:
         r1name=atom.get_name()
         r1index = r1.get_id()[1]
     for r2 in residuescationA:
+        cation=['NH1','NH2','NZ']
         for atom in r2:
             r2name=atom.get_name()
-            r2index = r2.get_id()[1]
+            if r2name in cation:
+                r2index = r2.get_id()[1]
             if(r1index != r2index and len(r1name)>1 and r1name != "CA" and len(r2name)>1 and r2name != "CA" and "H" not in r1name and "H" not in r2name):
                 if (r1[r1name] - r2[r2name])< 6:
                     v=(r1.get_resname(),r1index,r1.get_parent(),"-",r2.get_resname(),r2index,r2.get_parent())
