@@ -46,8 +46,10 @@ for r1 in residuesA:
                         distance = r1[r1name] - r2[r2name]
                     except KeyError:
                         continue
-                    if(r1[r1name] - r2[r2name])< 5 and duplicata != (r1.get_resname(),r1index,"-",r2.get_resname(),r2index,):
+                    b = (r1.get_resname(),r1index,"-",r2.get_resname(),r2index,)
+                    if(r1[r1name] - r2[r2name])< 5 and b not in duplicata :
                         print("possible hydrophobic interactions in chains:",r1.get_parent(),r2.get_parent())
                         print (r1.get_resname(),r1index,"-",r2.get_resname(),r2index,)
                         print (round(r1[r1name] - r2[r2name],2))
-                        duplicata = (r1.get_resname(),r1index,"-",r2.get_resname(),r2index,)
+                        a=(r1.get_resname(),r1index,"-",r2.get_resname(),r2index,)
+                        duplicata.append(a)
