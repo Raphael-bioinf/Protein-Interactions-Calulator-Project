@@ -36,7 +36,7 @@ for chain in model: # protéine -> chaîne -> résidues impliqués dans interact
             residues.append(res)
 
 
-def ionicfun(atom1, atom2, resid1, resid2, dist = 6):
+def ionic_fun(atom1, atom2, resid1, resid2, dist = 6):
     if (
         (("N" in atom1.get_name() and len(atom1.get_name()) > 1
           and resid1.get_resname() in ["LYS", "ARG", "HIS"])
@@ -57,4 +57,4 @@ for res1 in residues:
     for res2 in residues:
         for atom1 in res1:
             for atom2 in res2:
-                ionicfun(atom1, atom2, res1, res2, 6)
+                ionic_fun(atom1, atom2, res1, res2, 6)
