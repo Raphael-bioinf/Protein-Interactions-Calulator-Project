@@ -11,7 +11,7 @@ from Bio.PDB import PDBParser
 parser=PDBParser(PERMISSIVE=1)
 structure=parser.get_structure(prot_id, prot_file)
 model=structure[0]
-
+duplicata = []
 if "-h" in sys.argv or "--help" in sys.argv:
     print ("Ce programme identifie les liaisons cations-pi à partir d'un fichier Protein Data Bank (PDB). Les critères pris en compte proviennent du Protein Interaction Calculator que l'on peut retrouver en suivant le lien : http://pic.mbu.iisc.ernet.in/PIC_Criteria.pdf. Le parser de Biopython est strucutré de la manière suivante : Structure/model/chain/residu/atome.")
     print ("Fonctions utilisées :")
@@ -41,12 +41,13 @@ for r1 in residuesA:
             if r2name not in cresidues:
                 r2index = r2.get_id()[1]
                 #On effectue la comparaison pour la  distance entre deux atomes
-                if(r1index != r2index):
+                if not (r1index == r2index):
                     try:
                         distance = r1[r1name] - r2[r2name]
                     except KeyError:
                         continue
-                    if(r1[r1name] - r2[r2name])< 5:
+                    if(r1[r1name] - r2[r2name])< 5 and duplicata != (r1.get_resname(),r1index,"-",r2.get_resname(),r2index,):
                         print("possible hydrophobic interactions in chains:",r1.get_parent(),r2.get_parent())
                         print (r1.get_resname(),r1index,"-",r2.get_resname(),r2index,)
                         print (round(r1[r1name] - r2[r2name],2))
+                        duplicata = (r1.get_resname(),r1index,"-",r2.get_resname(),r2index,)
