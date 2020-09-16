@@ -47,11 +47,11 @@ for r1 in residuescationA:
             r2index = r2.get_id()[1]
             if(r1index != r2index and len(r1name)>1 and r1name != "CA" and len(r2name)>1 and r2name != "CA" and "H" not in r1name and "H" not in r2name):
                 if (r1[r1name] - r2[r2name])< 6:
-                    v=(r1.get_resname(),r1index,"-",r2.get_resname(),r2index,)
+                    v=(r1.get_resname(),r1index,r1.get_parent(),"-",r2.get_resname(),r2index,r2.get_parent())
                     listeA.append(v)
-                    print("possible cation-pi interactions in chain A:",r1.get_parent(),r2.get_parent()),
-                    print (r1.get_resname(),r1index,"-",r2.get_resname(),r2index,)
-                    print (round(r1[r1name] - r2[r2name],2))
+                    #print("possible cation-pi interactions in chain A:",r1.get_parent(),r2.get_parent()),
+                    #print (r1.get_resname(),r1index,"-",r2.get_resname(),r2index,)
+                    #print (round(r1[r1name] - r2[r2name],2))
                 
 for r1 in residuesPIA:
     for atom in r1:
@@ -63,11 +63,11 @@ for r1 in residuesPIA:
             r2index = r2.get_id()[1]
             if(r1index != r2index and len(r1name)>1 and r1name != "CA" and len(r2name)>1 and r2name != "CA" and "H" not in r1name and "H" not in r2name):
                 if (r1[r1name] - r2[r2name])< 6:
-                    v=(r1.get_resname(),r1index,"-",r2.get_resname(),r2index,)
+                    v=(r1.get_resname(),r1index,r1.get_parent(),"-",r2.get_resname(),r2index,r2.get_parent())
                     listeA.append(v)
-                    print("possible cation-pi interactions in chain :", r1.get_parent(),r2.get_parent()),
-                    print (r1.get_resname(),r1index,"-",r2.get_resname(),r2index,)
-                    print (round(r1[r1name] - r2[r2name],2)) 
+                    #print("possible cation-pi interactions in chain :", r1.get_parent(),r2.get_parent()),
+                    #print (r1.get_resname(),r1index,"-",r2.get_resname(),r2index,)
+                    #print (round(r1[r1name] - r2[r2name],2)) 
 
                 
 
@@ -80,7 +80,7 @@ while h< len(listeA):
     h=h+1
 
 
-# In[ ]:
+
 
 
 
