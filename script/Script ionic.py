@@ -4,10 +4,14 @@
 # In[1]:
 
 
+from Bio.PDB import PDBParser
+import sys
+
+
 prot_id = "5AGY.pdb"
 prot_file = sys.argv[1]
 
-from Bio.PDB import PDBParser
+
 parser = PDBParser(PERMISSIVE=1)
 structure = parser.get_structure(prot_id, prot_file)
 model = structure[0]
