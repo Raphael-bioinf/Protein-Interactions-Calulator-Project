@@ -7,6 +7,7 @@ import sys
 prot_id = "1gai.pdb"
 prot_file = sys.argv[1]
 
+#On va utiliser le parser de Biopython qui nous permet d'accéder aux éléments d'un fichier PDB.
 from Bio.PDB import PDBParser
 parser=PDBParser(PERMISSIVE=1)
 structure=parser.get_structure(prot_id, prot_file)
