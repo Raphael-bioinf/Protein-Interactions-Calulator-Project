@@ -1,17 +1,23 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+from Bio.PDB import Atom
+from math import sqrt
 from Bio.PDB import PDBParser
-parser=PDBParser(PERMISSIVE=1)
-structure=parser.get_structure(prot_id, prot_file)
-model=structure[0]
-
-residuescationA = []
-residuesPIA = []
-listeA=[]
+import argparse
+import sys
 
 
-<<<<<<< HEAD
+prot_id = "5AGY.pdb"
+prot_file = sys.argv[1]
+
+
+parser = PDBParser(PERMISSIVE = 1)
+structure = parser.get_structure(prot_id, prot_file)
+model = structure[0]
+
+residues = []
+aroaro = ["PHE", "TRP", "TYR"]
 for chain in model: # protéine -> chaîne -> résidues impliqués dans interactions aromatiques / aromatiques
     for res in chain:
         if res.get_resname() in aroaro:
