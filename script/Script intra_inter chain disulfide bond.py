@@ -1,8 +1,10 @@
 #Problème : -Doublon des Cystéines interagissant entre elles (A avec B et B avec A)
 #           -Si protéine pas de chaîne B --> génère une erreur
 
+import sys
+
 prot_id = "1eej.pdb"
-prot_file = "../data/1eej.pdb"
+prot_file = sys.argv[1]
 
 from Bio.PDB import PDBParser
 parser=PDBParser(PERMISSIVE=1)

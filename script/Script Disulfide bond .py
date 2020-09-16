@@ -3,9 +3,10 @@
 
 # In[1]:
 
+import sys
 
 prot_id = "5AGY.pdb"
-prot_file = "../data/5AGY.pdb"
+prot_file = sys.argv[1]
 
 #On va utiliser le parser de Biopython qui nous permet d'accéder aux éléments d'un fichier PDB.
 from Bio.PDB import PDBParser

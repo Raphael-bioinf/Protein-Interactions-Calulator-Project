@@ -2,8 +2,10 @@
 #PHYDROPHOBIC INTERACTIONS:The following residues are considered to participate in interactions if they fall within 5Å range.
 #ALA, VAL, LEU, ILE, MET, PHE, TRP, PRO, TYR.
 
+import sys
+
 prot_id = "1gai.pdb"
-prot_file = "1gai.pdb"
+prot_file = sys.argv[1]
 
 from Bio.PDB import PDBParser
 parser=PDBParser(PERMISSIVE=1)

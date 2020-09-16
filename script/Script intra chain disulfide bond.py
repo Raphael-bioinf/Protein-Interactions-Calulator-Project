@@ -1,7 +1,9 @@
 # Problème à régler : exprime en duplicata les interactions (A avec B et B avec A)
 
+import sys
+
 prot_id = "1eej.pdb"
-prot_file = "1eej.pdb"
+prot_file = sys.argv[1]
 
 from Bio.PDB import PDBParser
 parser=PDBParser(PERMISSIVE=1)

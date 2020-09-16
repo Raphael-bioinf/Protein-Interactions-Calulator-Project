@@ -3,9 +3,10 @@
 
 # In[21]:
 
+import sys
 
 prot_id = "4rcn.pdb"
-prot_file = "4rcn.pdb"
+prot_file = sys.argv[1] #"4rcn.pdb"
 
 from Bio.PDB import PDBParser
 parser=PDBParser(PERMISSIVE=1)
