@@ -48,7 +48,7 @@ def ionic_fun(atom1, atom2, resid1, resid2, dist = 6):
               and resid2.get_resname() in ["LYS", "ARG", "HIS"]))
     ):
         d = atom1 - atom2
-        if d < dist+0.3 and d > dist-0.3:
+        if d < dist:
             print(resid1.get_resname(), resid1.get_id()[1],resid2.get_resname(), resid2.get_id()[1], "dist =", d)
             return(d)
 
