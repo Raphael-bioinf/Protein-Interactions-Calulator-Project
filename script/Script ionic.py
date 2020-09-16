@@ -36,32 +36,6 @@ for chain in model: # protéine -> chaîne -> résidues impliqués dans interact
             residues.append(res)
 
 
-def center_mass(resid):
-    xmean = 0
-    ymean = 0
-    zmean = 0
-    if resid.get_resname() in ["PHE", "TYR"]:
-        for atom in resid:
-            if atom.get_name() in ["CG", "CD1", "CE1", "CZ", "CE2", "CD2"]:
-                xmean = xmean + atom.get_coord()[0]
-                ymean = ymean + atom.get_coord()[1]
-                zmean = zmean + atom.get_coord()[2]
-        xmean = xmean / 6
-        ymean = ymean / 6
-        zmean = zmean / 6
-    elif resid.get_resname() == "TRP":
-        for atom in resid:
-            if atom.get_name() in ["CD2", "CE2", "CZ2", "CH2", "CZ3", "CE3"]:
-                xmean = xmean + atom.get_coord()[0]
-                ymean = ymean + atom.get_coord()[1]
-                zmean = zmean + atom.get_coord()[2]
-        xmean = xmean / 6
-        ymean = ymean / 6
-        zmean = zmean / 6
-    resid.center_mass = (xmean, ymean, zmean)
-    return(resid)
-
-
 def ionicfun(atom1, atom2, resid1, resid2, dist = 6):
     if (
         (("N" in atom1.get_name() and len(atom1.get_name()) > 1
