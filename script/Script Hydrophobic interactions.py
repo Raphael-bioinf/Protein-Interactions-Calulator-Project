@@ -2,9 +2,6 @@
 #PHYDROPHOBIC INTERACTIONS:The following residues are considered to participate in interactions if they fall within 5Å range.
 #ALA, VAL, LEU, ILE, MET, PHE, TRP, PRO, TYR.
 
-prot_id = "1eej.pdb"
-prot_file = "1eej.pdb"
-
 prot_id = "1gai.pdb"
 prot_file = "1gai.pdb"
 
@@ -12,14 +9,6 @@ from Bio.PDB import PDBParser
 parser=PDBParser(PERMISSIVE=1)
 structure=parser.get_structure(prot_id, prot_file)
 model=structure[0]
-
-parser=argparse.ArgumentParser(
-    description='''Ce programme identifie les interactions hydrophobes à partir d'un fichier Protein Data Bank (PDB). Les critères pris en compte proviennent du Protein Interaction Calculator que l'on peut retrouver en suivant le lien : http://pic.mbu.iisc.ernet.in/PIC_Criteria.pdf. Le module Biopython a été utilisé pour accéder à la structure des protéines. Le parser de Biopython est strucutré de la manière suivante : Structure/model/chain/residu/atome Fonctions utilisées :''',
-    epilog="""Je vous souhaite une bonne utilisation du programme.""")
-parser.add_argument('parser.get_structure', type=int, default=42, help='Creation of a structure object from a PDB file')
-parser.add_argument('objet.get_name', type=int, default=43, help='Renvoie le nom correspondant à l objet : Structure/model/chain/residu/atome')
-parser.add_argument('atom.get_id', type=int, default=44, help='Renvoie le numéro rattaché au résidue dans le fichier PDB')
-args=parser.parse_args()
 
 residuesA = []
 #On selectionne les acides aminés impliqués dans les intercations hydrophobes
