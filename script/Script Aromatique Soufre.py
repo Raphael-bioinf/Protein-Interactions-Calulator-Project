@@ -20,13 +20,13 @@ structure = parser.get_structure(prot_id, prot_file)
 model = structure[0]
 
 
-#parser = argparse.ArgumentParser(
-    #description = '''Ce programme identifie les interactions entre cycles aromatiques & atomes de soufre à partir d'un fichier Protein Data Bank (PDB). Les critères pris en compte proviennent du Protein Interaction Calculator que l'on peut retrouver en suivant le lien : http://pic.mbu.iisc.ernet.in/PIC_Criteria.pdf. Le module Biopython a été utilisé pour accéder à la structure des protéines. Le parser de Biopython est strucutré de la manière suivante : Structure/model/chain/residu/atome Fonctions utilisées :''',
-    #epilog = """Je vous souhaite une bonne utilisation du programme.""")
-#parser.add_argument('parser.get_structure', type = int, default = 42, help = 'Creation of a structure object from a PDB file')
-##parser.add_argument('objet.get_name', type = int, default = 43, help = 'Renvoie le nom correspondant à l objet : Structure/model/chain/residu/atome')
-##parser.add_argument('atom.get_id', type = int, default = 44, help = 'Renvoie le numéro rattaché au résidue dans le fichier PDB')
-#args = parser.parse_args()
+if "-h" in sys.argv or "--help" in sys.argv:
+    print("Ce programme identifie les interactions entre cycles aromatiques & atomes de soufre à partir d'un fichier Protein Data Bank (PDB). Les critères pris en compte proviennent du Protein Interaction Calculator que l'on peut retrouver en suivant le lien : http://pic.mbu.iisc.ernet.in/PIC_Criteria.pdf. Le parser de Biopython est strucutré de la manière suivante : Structure/model/chain/residu/atome.")
+    print("Fonctions utilisées :")
+    print('parser.get_structure -->  ', 'Creation of a structure object from a PDB file')
+    print('objet.get_name -->  ', 'Renvoie le nom correspondant à l objet : Structure/model/chain/residu/atome')
+    print('parser.get_structure -->  ', 'Renvoie le numéro rattaché au résidue dans le fichier PDB')
+    print('')
 
 
 arosul = ["PHE", "TRP",  "TYR", "CYS", "MET"] # AA impliqués dans des interactions cycle aromatique - soufre
