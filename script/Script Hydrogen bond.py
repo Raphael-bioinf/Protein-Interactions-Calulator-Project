@@ -35,7 +35,7 @@ def hbond_fun(acceptor, donnor, resid1, resid2, distON = 3.5, distS = 4):
         if "O" in donnor.get_name() or "N" in donnor.get_name() or "S" in donnor.get_name():
             if "O" in acceptor.get_name() or "N" in acceptor.get_name():
                 if d < distON:
-                    print(resid1.get_id()[1], resid1.get_resname(), acceptor.get_name(), resid2.get_id()[1], resid2.get_resname(), donnor.get_name(), "dist =", d)
+                    print(resid1.get_id()[1], resid1.get_resname(), resid1.get_parent(), acceptor.get_name(), resid2.get_id()[1], resid2.get_resname(), resid2.get_parent(), donnor.get_name(), "dist =", d)
                     return(d)
     elif resid1.get_id()[1] == resid2.get_id()[1]:
         pass
