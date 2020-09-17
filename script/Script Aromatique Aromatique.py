@@ -101,11 +101,10 @@ def aro_aro(resid1, resid2, dmin = 4.5, dmax = 7): # détermine si une distance 
     d = dist_center_coord(resid1, resid2)
 
     if (d > dmin) and (d < dmax):
-        print( resid1.get_id()[1]," ",resid1.get_resname(), " ", resid2.get_id()[1], " ", resid2.get_resname(), " ", "dist =", d)
+        print( resid1.get_id()[1],resid1.get_resname(), resid1.get_parent(), resid2.get_id()[1], resid2.get_resname(), resid2.get_parent(), "dist =", d)
         return(d)
 
 
-print("pos1", "res1", "pos2", "res2", "   dist")
 
 
 for res1 in residues:

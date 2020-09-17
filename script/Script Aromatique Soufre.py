@@ -89,4 +89,4 @@ for res1 in residues:
                         center_coord(res2).center_mass[1], 
                         center_coord(res2).center_mass[2]) 
                     if d < dist:
-                        print(res1.get_id()[1], res1.get_resname(), res2.get_id()[1], res2.get_resname(), "dist =", d)
+                        print(res1.get_id()[1], res1.get_resname(), res1.get_parent(), res2.get_id()[1], res2.get_resname(), res2.get_parent(), "dist =", d)
